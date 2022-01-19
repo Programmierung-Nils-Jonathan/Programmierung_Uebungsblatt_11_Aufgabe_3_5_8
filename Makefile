@@ -1,4 +1,4 @@
-FILENAME = Main
+FILENAME = 5/Main
 
 .DEFAULT_GOAL := compile-run
 
