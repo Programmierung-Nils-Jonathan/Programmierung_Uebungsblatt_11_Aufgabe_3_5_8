@@ -1,0 +1,38 @@
+name: Code Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate_image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Generate code image content
+        run: |
+          for i in *.hs
+          do
+            echo "-- $i" > content.txt
+            echo "" >> content.txt
+            cat $i >> content.txt
+            echo "" >> content.txt
+          done
+          
+          cat content.txt
+      
+      - id: generate_image
+        uses: JonathanTreffler/Carbon-Action@master
+        with:
+          code: $(cat content.txt)
+          windowControls: false
+          language: Haskell
+          lineNumbers: true
+          
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Code
+          path: |
+            code.png
+            content.txt
