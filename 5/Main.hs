@@ -1,3 +1,5 @@
+import Data.List
+
 -- a)
 strings :: Int -> [ String ]
 strings 0 = [""]
@@ -33,5 +35,28 @@ divisors x = filter (\y -> mod x y == 0) [1.. div x 2]
 perfect :: [Int]
 perfect = filter (\x -> x == sum (divisors x )) [2..]
 
+addsUpTo :: Int -> [Int] -> Bool
+addsUpTo x y = (sum y) == x
+
+isSemiperfect :: Int -> Bool
+isSemiperfect x = any (addsUpTo x) (subsequences (divisors x))
+
+semiperfectNumbesAboveN :: Int -> [Int]
+--semiperfectNumbesAboveN 50 = [] --limit n for testing
+semiperfectNumbesAboveN n   | isSemiperfect n = n : (semiperfectNumbesAboveN (n+1))
+                            | otherwise = semiperfectNumbesAboveN (n+1)
+
+semiperfectNumbers :: [Int]
+semiperfectNumbers = semiperfectNumbesAboveN 0
+
 main :: IO()
-main = print (palindromesN 2) --palindromes
+main = do
+    print ("a)")
+    print (palindromesN 2) --palindromes
+    print ("b)")
+    print ("isSemiperfect 4 (Expected: False)")
+    print (isSemiperfect 4)
+    print ("isSemiperfect 12 (Expected: True)")
+    print (isSemiperfect 12)
+    print ("semiperfectNumbers")
+    print (semiperfectNumbers)
