@@ -59,4 +59,4 @@ main = do
     print ("isSemiperfect 12 (Expected: True)")
     print (isSemiperfect 12)
     print ("semiperfectNumbers")
-    print (semiperfectNumbers)
+    --print (semiperfectNumbers) --will not terminate
